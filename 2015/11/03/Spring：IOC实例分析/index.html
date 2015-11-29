@@ -1,0 +1,741 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="世界尽头与冷酷仙境" />
+
+
+
+  <meta name="keywords" content="Spring," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="依赖注入，是IOC的一个方面，是个通常的概念，它有多种解释。这概念是说你不用创建对象，而只需要描述它如何被创建。
+不需要在代码里直接组装你的组件和服务，但是要在配置文件里描述哪些组件需要哪些服务，之后一个容器（IOC容器）负责把他们组装起来。
+IOC是通过反射机制（反射机制什么？）实现的
+IOC例子现在有一个类为Animal，有一个接口为Action，有一个接口的实现为ActionImpl1234">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IOC实例分析">
+<meta property="og:url" content="http://askingwindy.github.io/2015/11/03/Spring：IOC实例分析/index.html">
+<meta property="og:site_name" content="猫生">
+<meta property="og:description" content="依赖注入，是IOC的一个方面，是个通常的概念，它有多种解释。这概念是说你不用创建对象，而只需要描述它如何被创建。
+不需要在代码里直接组装你的组件和服务，但是要在配置文件里描述哪些组件需要哪些服务，之后一个容器（IOC容器）负责把他们组装起来。
+IOC是通过反射机制（反射机制什么？）实现的
+IOC例子现在有一个类为Animal，有一个接口为Action，有一个接口的实现为ActionImpl1234">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IOC实例分析">
+<meta name="twitter:description" content="依赖注入，是IOC的一个方面，是个通常的概念，它有多种解释。这概念是说你不用创建对象，而只需要描述它如何被创建。
+不需要在代码里直接组装你的组件和服务，但是要在配置文件里描述哪些组件需要哪些服务，之后一个容器（IOC容器）负责把他们组装起来。
+IOC是通过反射机制（反射机制什么？）实现的
+IOC例子现在有一个类为Animal，有一个接口为Action，有一个接口的实现为ActionImpl1234">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'always'
+  };
+</script>
+
+  <title> IOC实例分析 | 猫生 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">猫生</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <form class="site-search-form">
+    <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+  </form>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '1LvasUPewmMcTCMJXJmZ','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              IOC实例分析
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-03T09:44:15+08:00" content="2015-11-03">
+            2015-11-03
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Java/" itemprop="url" rel="index">
+                  <span itemprop="name">Java</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/11/03/Spring：IOC实例分析/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/03/Spring：IOC实例分析/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>依赖注入，是IOC的一个方面，是个通常的概念，它有多种解释。这概念是说你不用创建对象，而只需要描述它如何被创建。</p>
+<p>不需要在代码里直接组装你的组件和服务，但是要在<strong>配置文件</strong>里描述哪些组件需要哪些服务，之后一个容器（IOC容器）负责把他们组装起来。</p>
+<p>IOC是通过<strong>反射机制</strong>（<a href="https://askingwindy.gitbooks.io/gitbook-java-interview-note/content/javaBasic/reflection/index.html" target="_blank" rel="external">反射机制什么？</a>）实现的</p>
+<h2 id="IOC例子">IOC例子</h2><p>现在有一个类为<code>Animal</code>，有一个接口为<code>Action</code>，有一个接口的实现为<code>ActionImpl</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> study.hry.spring.ioc</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> Action action;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h3 id="传统的引用方式">传统的引用方式</h3><p>Animal类中引用了一个Action接口，如果Action接口有一个名为<code>ActionImpl</code>的实现，那么传统的强引用方式为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> study.hry.spring.ioc</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name = <span class="string">"dog"</span>;</span><br><span class="line">	<span class="keyword">private</span> Action action = <span class="keyword">new</span> ActionImpl();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>一旦<code>Action</code>这个接口拥有了其他实现：例如<code>ActionImpl2</code>，那么，我们需要更改源代码</p>
+<h3 id="IOC注入方式">IOC注入方式</h3><p>IOC的注入是通过xml的配置文件实现的，我们首先需要将Action与Animal注册为Spring 的  Bean（<a href="http://askingwindy.github.io/2015/11/03/Spring%EF%BC%9ASpring%20Bean/" target="_blank" rel="external">Spring Bean是什么?</a>），即在xml配置文件中利用标签<code>&lt;bean&gt;</code>进行配置</p>
+<p>首先，我们将Action接口在配置文件中声明，此时<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="doctype">&lt;!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd"&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">beans</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"action"</span> <span class="attribute">class</span>=<span class="value">"study.hry.spring.ioc.ActionImpl"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Bean元素，定义要容器管理的一个Bean的相关属性；其中id是创建的 bean实例的名称，在其他位置通过该名称来得到该bean的实例；class指明创建该实例的类，允许存在同一个类的多个实例，以不同的名字来命名</p>
+<h4 id="构造器依赖注入">构造器依赖注入</h4><p>构造器依赖注入通过容器触发一个类的构造器来实现的，该类有一系列参数，每个参数代表一个对其他类的依赖。</p>
+<p>现在，我们可以将<code>ActionImpl</code>通过构造器注入到<code>Animal</code>中。<br>首先，需要在<code>Animal</code>中添加含参构造器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> Action action;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Animal</span><span class="params">(String name, Action action)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">		<span class="keyword">this</span>.action = action;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>同时，在配置文件中，将<code>Animal</code>声明为一个Spring Bean<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span> = "<span class="attribute">animal</span>", <span class="attribute">class</span> = "<span class="attribute">study.hry.spring.ioc.Animal</span>"&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">constructor-arg</span> <span class="attribute">name</span>=<span class="value">"name"</span><span class="value">,</span> <span class="attribute">value</span>=<span class="value">"dog"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">constructor-arg</span> <span class="attribute">name</span>=<span class="value">"action"</span><span class="value">,</span> <span class="attribute">ref</span> =<span class="value">"action"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这里，<code>&lt;constructor-arg&gt;</code>表示是构造器的形参，这里采用的是<strong>参数名字传值</strong>方式，此外还有几种其他赋值方式</p>
+<h5 id="索引赋值">索引赋值</h5><p>这是根据构造器各个变量的位置索引号的<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span> = "<span class="attribute">animal</span>", <span class="attribute">class</span> = "<span class="attribute">study.hry.spring.ioc.Animal</span>"&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">constructor-arg</span> <span class="attribute">index</span>=<span class="value">"0"</span><span class="value">,</span> <span class="attribute">value</span>=<span class="value">"dog"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">constructor-arg</span> <span class="attribute">index</span>=<span class="value">"1"</span><span class="value">,</span> <span class="attribute">ref</span> =<span class="value">"action"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="所属类型传值">所属类型传值</h5><p>这是根据构造器各个变量的类型传值的<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span> = "<span class="attribute">animal</span>", <span class="attribute">class</span> = "<span class="attribute">study.hry.spring.ioc.Animal</span>"&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">constructor-arg</span> <span class="attribute">type</span>=<span class="value">"java.lang.String"</span><span class="value">,</span> <span class="attribute">value</span>=<span class="value">"dog"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">constructor-arg</span> <span class="attribute">type</span>=<span class="value">"study.hry.spring.ioc.Action"</span><span class="value">,</span> <span class="attribute">ref</span> =<span class="value">"action"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="参数名字_传值">参数名字 传值</h5><h5 id="直接传值">直接传值</h5><p>这是根据构造器各个变量的位置传值的，如果位置颠倒了会出现错误<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span> = "<span class="attribute">animal</span>", <span class="attribute">class</span> = "<span class="attribute">study.hry.spring.ioc.Animal</span>"&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">constructor-arg</span> <span class="attribute">value</span>=<span class="value">"dog"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">constructor-arg</span> <span class="attribute">ref</span> =<span class="value">"action"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="Setter方法注入">Setter方法注入</h4><p>Setter方法注入是容器通过调用无参构造器或无参static工厂 方法实例化bean之后，调用该bean的setter方法，即实现了基于setter的依赖注入<br>首先，需要在Animal.java中添加setter方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Action action;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAction</span><span class="params">(Action action)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.action = action;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>同时，在配置文件中，将<code>Animal</code>声明为一个Spring Bean<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span> = "<span class="attribute">animal</span>", <span class="attribute">class</span> = "<span class="attribute">study.hry.spring.ioc.Animal</span>"&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"name"</span> <span class="attribute">value</span>=<span class="value">"dog"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"action"</span> <span class="attribute">ref</span> =<span class="value">"action"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="如何注入Java集合">如何注入Java集合</h3><p>Spring提供以下几种集合的配置元素：</p>
+<ul>
+<li><code>&lt;list&gt;</code>类型用于注入一列值，允许有相同的值。</li>
+<li><code>&lt;set&gt;</code> 类型用于注入一组值，不允许有相同的值。</li>
+<li><code>&lt;map&gt;</code>类型用于注入一组键值对，键和值都可以为任意类型。</li>
+<li><code>&lt;props&gt;</code>类型用于注入一组键值对，键和值都只能为String类型。</li>
+</ul>
+<h2 id="自动装配">自动装配</h2><p>Spring 3.0后增加了注解来支持bean的自动装配</p>
+<p>Spring 容器能够自动装配相互合作的bean，这意味着容器<strong>不需要</strong><code>&lt;constructor-arg&gt;</code>和<code>&lt;property&gt;</code>配置，能通过Bean工厂自动处理bean之间的协作。</p>
+<p>就是不再使用<strong>ref</strong>进行手工装配bean,这种方式可以减少配置文件的代码量，但是，在大型项目中，不推荐使用，容易混乱，Spring提供byName,byType,constructor,autpdetect四种自动装备方式</p>
+<p>例如上述例子的自动装配的xml配置为：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span> = "<span class="attribute">animal</span>", <span class="attribute">class</span> = "<span class="attribute">study.hry.spring.ioc.Animal</span>" <span class="attribute">autowire</span>=<span class="value">"byName"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"name"</span> <span class="attribute">value</span>=<span class="value">"dog"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="@Autowired">@Autowired</h3><p><code>@Autowired</code>注解相当于一种自动装配，它在<code>Animal.java</code>中使用，例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> Action action;</span><br><span class="line">	</span><br><span class="line">	<span class="annotation">@Autowired</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAction</span><span class="params">(Action action)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.action = action;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>@Autowired 将分别寻找和它类型匹配的 Bean，调用方法自动注入这些 Bean</p>
+<h3 id="自动装配有哪些局限性">自动装配有哪些局限性</h3><ol>
+<li>重写： 仍需用 <constructor-arg>和 <property> 配置来定义依赖，意味着总要重写自动装配。</property></constructor-arg></li>
+<li>基本数据类型：<strong>不能</strong>自动装配简单的属性，如基本数据类型，String字符串，和类。</li>
+<li>模糊特性：自动装配不如显式装配精确，如果有可能，建议使用显式装配。</li>
+</ol>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag">#Spring</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/03/Spring：面向切面编程（AOP）/" rel="prev">面向切面编程（AOP）</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/03/Spring：Spring是什么/" rel="next">Spring是什么</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2015/11/03/Spring：IOC实例分析/"
+                   data-title="IOC实例分析" data-url="http://askingwindy.github.io/2015/11/03/Spring：IOC实例分析/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://askingwindy-gitcafe.qiniudn.com/touxiang.png" alt="Askingwindy" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Askingwindy</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">世界尽头与冷酷仙境</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/askingwindy?tab=repositories" target="_blank">GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://askingwindy.gitbooks.io/gitbook-java-interview-note/content/" target="_blank">Java面试准备</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#IOC例子"><span class="nav-number">1.</span> <span class="nav-text">IOC例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统的引用方式"><span class="nav-number">1.1.</span> <span class="nav-text">传统的引用方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IOC注入方式"><span class="nav-number">1.2.</span> <span class="nav-text">IOC注入方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构造器依赖注入"><span class="nav-number">1.2.1.</span> <span class="nav-text">构造器依赖注入</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#索引赋值"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">索引赋值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#所属类型传值"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">所属类型传值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参数名字_传值"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">参数名字 传值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#直接传值"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">直接传值</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Setter方法注入"><span class="nav-number">1.2.2.</span> <span class="nav-text">Setter方法注入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何注入Java集合"><span class="nav-number">1.3.</span> <span class="nav-text">如何注入Java集合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动装配"><span class="nav-number">2.</span> <span class="nav-text">自动装配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#@Autowired"><span class="nav-number">2.1.</span> <span class="nav-text">@Autowired</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动装配有哪些局限性"><span class="nav-number">2.2.</span> <span class="nav-text">自动装配有哪些局限性</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Askingwindy</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"askingwindy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+     
+  	  <script type="text/javascript">
+  		var duoshuo_user_ID = 5813686
+      var duoshuo_admin_nickname="askingwindy"
+  	  </script>
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>

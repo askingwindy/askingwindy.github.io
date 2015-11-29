@@ -1,0 +1,742 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="世界尽头与冷酷仙境" />
+
+
+
+  <meta name="keywords" content="Spring," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="Spring 是个java企业级应用的开源开发框架。Spring主要用来开发Java应用，但是有些扩展是针对构建J2EE平台的web应用。Spring 框架目标是简化Java企业级应用开发，并通过POJO（POJO是什么?）为基础的编程模型促进良好的编程习惯。
+功能强大的基于javaBeans的配置管理，它使组织应用变得容易和迅速。你的代码中不再充斥着单例垃圾，也不再有麻烦的属性文件。取而代之的一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring是什么">
+<meta property="og:url" content="http://askingwindy.github.io/2015/11/03/Spring：Spring是什么/index.html">
+<meta property="og:site_name" content="猫生">
+<meta property="og:description" content="Spring 是个java企业级应用的开源开发框架。Spring主要用来开发Java应用，但是有些扩展是针对构建J2EE平台的web应用。Spring 框架目标是简化Java企业级应用开发，并通过POJO（POJO是什么?）为基础的编程模型促进良好的编程习惯。
+功能强大的基于javaBeans的配置管理，它使组织应用变得容易和迅速。你的代码中不再充斥着单例垃圾，也不再有麻烦的属性文件。取而代之的一">
+<meta property="og:image" content="http://static.oschina.net/uploads/img/201306/08112341_wYHX.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring是什么">
+<meta name="twitter:description" content="Spring 是个java企业级应用的开源开发框架。Spring主要用来开发Java应用，但是有些扩展是针对构建J2EE平台的web应用。Spring 框架目标是简化Java企业级应用开发，并通过POJO（POJO是什么?）为基础的编程模型促进良好的编程习惯。
+功能强大的基于javaBeans的配置管理，它使组织应用变得容易和迅速。你的代码中不再充斥着单例垃圾，也不再有麻烦的属性文件。取而代之的一">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'always'
+  };
+</script>
+
+  <title> Spring是什么 | 猫生 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">猫生</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <form class="site-search-form">
+    <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+  </form>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '1LvasUPewmMcTCMJXJmZ','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              Spring是什么
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-11-03T09:03:15+08:00" content="2015-11-03">
+            2015-11-03
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/Java/" itemprop="url" rel="index">
+                  <span itemprop="name">Java</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/11/03/Spring：Spring是什么/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/03/Spring：Spring是什么/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>Spring 是个java企业级应用的开源开发框架。Spring主要用来开发Java应用，但是有些扩展是针对构建J2EE平台的web应用。Spring 框架目标是简化Java企业级应用开发，并通过POJO（<a href="http://askingwindy.github.io/2015/11/03/Java%EF%BC%9APOJO%E4%B8%8EJava%20Bean/" target="_blank" rel="external">POJO是什么?</a>）为基础的编程模型促进良好的编程习惯。</p>
+<p>功能强大的基于javaBeans的配置管理，它使组织应用变得容易和迅速。你的代码中不再充斥着单例垃圾，也不再有麻烦的属性文件。取而代之的一致和优雅的方法的应用。</p>
+<h2 id="Spring好处">Spring好处</h2><ul>
+<li><strong>轻量</strong></li>
+<li><strong>控制反转</strong>：Spring通过控制反转实现了松散耦合，对象们给出它们的依赖，而不是创建或查找依赖的对象们。</li>
+<li><strong>面向切面的编程(AOP)</strong>：Spring支持面向切面的编程，并且把应用业务逻辑和系统服务分开。</li>
+<li><strong>容器</strong>：Spring 包含并管理应用中对象的生命周期和配置。</li>
+<li><strong>MVC框架</strong>：Spring的WEB框架是个精心设计的框架，是Web框架的一个很好的替代品。</li>
+<li><strong>事务管理</strong>：Spring 提供一个持续的事务管理接口，可以扩展到上至本地事务下至全局事务（JTA）。</li>
+<li><strong>异常处理</strong>：Spring 提供方便的API把具体技术相关的异常（比如由JDBC，Hibernate or JDO抛出的）转化为一致的unchecked 异常。</li>
+</ul>
+<a id="more"></a>
+<h2 id="Spring工作原理">Spring工作原理</h2><h3 id="IOC">IOC</h3><p>控制权由对象本身转向容器；由容器根据配置文件去创建实例并创建各个实例之间的依赖关系  </p>
+<ul>
+<li>核心：bean工厂；在Spring中，bean工厂创建的各个实例称作bean  </li>
+</ul>
+<p>Spring中内部最核心的就是IOC（控制反转）了，也叫DI（动态注入），让一个对象的创建不用new了，可以自动的生产，这其实就是利用java里的<strong>反射</strong>，反射其实就是在运行时动态的去创建、调用对象，Spring就是在运行时，跟xml Spring的配置文件来动态的创建对象，和调用对象里的方法的 。  </p>
+<p>IOC实例分析：<a href="http://askingwindy.github.io/2015/11/03/Spring%EF%BC%9AIOC%E5%AE%9E%E4%BE%8B%E5%88%86%E6%9E%90/" target="_blank" rel="external">IOC实例分析</a></p>
+<h3 id="AOP">AOP</h3><p> Spring还有一个核心就是AOP这个就是面向切面编程，可以为某一<strong>类对象</strong>进行监督和控制（也就是 在调用这类对象的具体方法的前后去调用你指定的模块）从而达到对一个模块扩充的功能。这些都是通过配置类达到的。</p>
+<p>AOP，面向切面编程，就是把可重用的功能提取出来，然后将这些通用功能在合适的时候织入到应用程序中，比如事务管理、权限控制、日志记录、性能统计等。</p>
+<p>AOP：<a href="http://blog.csdn.net/zhaozheng7758/article/details/7866202" target="_blank" rel="external">AOP实例</a><br>AOP一些概念：<a href="http://askingwindy.github.io/2015/11/03/Spring%EF%BC%9ASpring%20ORM%E6%A1%86%E6%9E%B6/" target="_blank" rel="external">AOP</a></p>
+<h2 id="Spring的组成">Spring的组成</h2><p> Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式，组成 Spring 框架的每个模块（或组件）都可以<strong>单独</strong>存在，或者与其他一个或多个模块<strong>联合</strong>实现。<br><img src="http://static.oschina.net/uploads/img/201306/08112341_wYHX.jpg" alt="Spring的组成"></p>
+<h3 id="Spring_Core">Spring Core</h3><p>核心容器提供 Spring 框架的基本功能。核心容器的主要组件是<strong> BeanFactory</strong>，它是工厂模式的实现。BeanFactory 使用控制反转 （IOC）模式将应用程序的配置和依赖性规范与实际的应用程序代码分开</p>
+<h3 id="Spring_Context">Spring Context</h3><p>Spring 上下文是一个配置文件，向 Spring 框架提供上下文信息。Spring 上下文包括企业服务，例如 JNDI、EJB、电子邮件、国际化、校验和调度功能</p>
+<h4 id="BeanFactory_v-s-_ApplicationContext">BeanFactory v.s. ApplicationContext</h4><p>BeanFactory负责读取bean的配置文件，管理bean的加载、实例化，维护bean之间的依赖关系，负责bean的生命周期。 </p>
+<p>ApplicationContext除了提供上述BeanFactory所能提供的功能之外，还提供了更完整的框架功能： </p>
+<ol>
+<li>国际化支持</li>
+<li>资源访问</li>
+<li>事件传递</li>
+</ol>
+<h3 id="Spring_AOP">Spring AOP</h3><p>通过<strong>配置管理</strong>特性，Spring AOP 模块直接将面向方面的编程功能集成到了 Spring 框架中。所以，可以很容易地使 Spring 框架管理的任何对象支持 AOP。</p>
+<p>Spring AOP 模块为基于 Spring 的应用程序中的对象提供了<strong>事务管理</strong>。</p>
+<p>通过使用 Spring AOP，不用依赖 EJB 组件，就可以将声明性事务管理集成到应用程序</p>
+<h3 id="Spring_ORM">Spring ORM</h3><p>Spring 框架插入了若干个 ORM 框架（<a href="http://askingwindy.github.io/2015/11/03/Spring%EF%BC%9ASpring%20ORM%E6%A1%86%E6%9E%B6/" target="_blank" rel="external">ORM框架是什么？</a>），从而提供了 ORM 的对象关系工具，其中包括 JDO、Hibernate 和 iBatis SQL Map。所有这些都遵从 Spring 的通用事务和 DAO 异常层次结构</p>
+<p>Spring中的事务：<a href="http://askingwindy.github.io/2015/11/03/Spring%EF%BC%9ASpring%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1/" target="_blank" rel="external">Spring中的事务</a></p>
+<h3 id="Spring_DAO">Spring DAO</h3><p>JDBC DAO 抽象层提供了有意义的异常层次结构，可用该结构来管理异常处理和不同数据库供应商抛出的错误消息。</p>
+<p>异常层次结构简化了错误处理，并且极大地降低了需要编写的异常代码数量（例如打开和关闭连接）。</p>
+<p>Spring DAO 的面向 JDBC 的异常遵从通用的 <a href="http://blog.csdn.net/wulei_longhe/article/details/24474851" target="_blank" rel="external">DAO 异常层次</a>结构</p>
+<h3 id="Spring_Web">Spring Web</h3><p>Web 上下文模块建立在应用程序上下文模块之上，为基于 Web 的应用程序提供了上下文。</p>
+<p>Web 模块还简化了处理多部分请求以及将请求参数绑定到域对象的工作。</p>
+<h3 id="Spring_MVC">Spring MVC</h3><p>MVC 框架是一个全功能的构建 Web 应用程序的 MVC 实现<br>通过策略接口，MVC 框架变成为高度可配置的，MVC 容纳了大量视图技术，其中包括 JSP、Velocity</p>
+<p>Spring MVC: <a href="http://askingwindy.github.io/2015/11/03/Spring%EF%BC%9ASpring%20MVC/" target="_blank" rel="external">Spring MVC</a></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag">#Spring</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/03/Spring：IOC实例分析/" rel="prev">IOC实例分析</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/27/Java：IO流/" rel="next">Java的IO</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2015/11/03/Spring：Spring是什么/"
+                   data-title="Spring是什么" data-url="http://askingwindy.github.io/2015/11/03/Spring：Spring是什么/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://askingwindy-gitcafe.qiniudn.com/touxiang.png" alt="Askingwindy" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Askingwindy</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">世界尽头与冷酷仙境</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/askingwindy?tab=repositories" target="_blank">GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://askingwindy.gitbooks.io/gitbook-java-interview-note/content/" target="_blank">Java面试准备</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring好处"><span class="nav-number">1.</span> <span class="nav-text">Spring好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring工作原理"><span class="nav-number">2.</span> <span class="nav-text">Spring工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IOC"><span class="nav-number">2.1.</span> <span class="nav-text">IOC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP"><span class="nav-number">2.2.</span> <span class="nav-text">AOP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring的组成"><span class="nav-number">3.</span> <span class="nav-text">Spring的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring_Core"><span class="nav-number">3.1.</span> <span class="nav-text">Spring Core</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring_Context"><span class="nav-number">3.2.</span> <span class="nav-text">Spring Context</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BeanFactory_v-s-_ApplicationContext"><span class="nav-number">3.2.1.</span> <span class="nav-text">BeanFactory v.s. ApplicationContext</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring_AOP"><span class="nav-number">3.3.</span> <span class="nav-text">Spring AOP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring_ORM"><span class="nav-number">3.4.</span> <span class="nav-text">Spring ORM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring_DAO"><span class="nav-number">3.5.</span> <span class="nav-text">Spring DAO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring_Web"><span class="nav-number">3.6.</span> <span class="nav-text">Spring Web</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring_MVC"><span class="nav-number">3.7.</span> <span class="nav-text">Spring MVC</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Askingwindy</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"askingwindy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+     
+  	  <script type="text/javascript">
+  		var duoshuo_user_ID = 5813686
+      var duoshuo_admin_nickname="askingwindy"
+  	  </script>
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>

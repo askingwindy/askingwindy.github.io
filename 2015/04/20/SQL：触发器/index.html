@@ -1,0 +1,886 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.1"/>
+
+
+    <meta name="description" content="世界尽头与冷酷仙境" />
+
+
+
+  <meta name="keywords" content="数据库," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
+
+
+<meta name="description" content="作用：监视某种情况，并触发某种操作
+
+能触发的操作：增、删、改
+
+能监视的操作：增、删、改
+
+
+应用场合：向一张表添加、删除时，需要在相关的表中进行同步
+触发器创建四要素
+
+
+名字
+语法
+
+
+
+
+监视地点
+TABLE
+
+
+监视事件
+INSERT/UPDATE/DELETE
+
+
+触发时间
+AFTER/BEFORE
+
+
+触发事件
+INSERT/UPDATE/DELETE
+
+
+
+创建触发器语法12345">
+<meta property="og:type" content="article">
+<meta property="og:title" content="触发器">
+<meta property="og:url" content="http://askingwindy.github.io/2015/04/20/SQL：触发器/index.html">
+<meta property="og:site_name" content="猫生">
+<meta property="og:description" content="作用：监视某种情况，并触发某种操作
+
+能触发的操作：增、删、改
+
+能监视的操作：增、删、改
+
+
+应用场合：向一张表添加、删除时，需要在相关的表中进行同步
+触发器创建四要素
+
+
+名字
+语法
+
+
+
+
+监视地点
+TABLE
+
+
+监视事件
+INSERT/UPDATE/DELETE
+
+
+触发时间
+AFTER/BEFORE
+
+
+触发事件
+INSERT/UPDATE/DELETE
+
+
+
+创建触发器语法12345">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="触发器">
+<meta name="twitter:description" content="作用：监视某种情况，并触发某种操作
+
+能触发的操作：增、删、改
+
+能监视的操作：增、删、改
+
+
+应用场合：向一张表添加、删除时，需要在相关的表中进行同步
+触发器创建四要素
+
+
+名字
+语法
+
+
+
+
+监视地点
+TABLE
+
+
+监视事件
+INSERT/UPDATE/DELETE
+
+
+触发时间
+AFTER/BEFORE
+
+
+触发事件
+INSERT/UPDATE/DELETE
+
+
+
+创建触发器语法12345">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'always'
+  };
+</script>
+
+  <title> 触发器 | 猫生 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-next-logo"></i>
+      </span>
+      <span class="site-title">猫生</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            <i class="menu-item-icon icon-next-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            <i class="menu-item-icon icon-next-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            <i class="menu-item-icon icon-next-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            <i class="menu-item-icon icon-next-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            <i class="menu-item-icon icon-next-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <form class="site-search-form">
+    <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+  </form>
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '1LvasUPewmMcTCMJXJmZ','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              触发器
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-04-20T16:36:20+08:00" content="2015-04-20">
+            2015-04-20
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                <a href="/categories/SQL/" itemprop="url" rel="index">
+                  <span itemprop="name">SQL</span>
+                </a>
+              </span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/04/20/SQL：触发器/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/20/SQL：触发器/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>作用：监视某种情况，并触发某种操作</p>
+<ul>
+<li><p>能触发的操作：增、删、改</p>
+</li>
+<li><p>能监视的操作：增、删、改</p>
+</li>
+</ul>
+<p>应用场合：向一张表添加、删除时，需要在相关的表中进行同步</p>
+<h2 id="触发器创建四要素">触发器创建四要素</h2><table>
+<thead>
+<tr>
+<th>名字</th>
+<th>语法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>监视地点</td>
+<td>TABLE</td>
+</tr>
+<tr>
+<td>监视事件</td>
+<td>INSERT/UPDATE/DELETE</td>
+</tr>
+<tr>
+<td>触发时间</td>
+<td>AFTER/BEFORE</td>
+</tr>
+<tr>
+<td>触发事件</td>
+<td>INSERT/UPDATE/DELETE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="创建触发器语法">创建触发器语法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> 触发器名字</span><br><span class="line"><span class="keyword">AFTER</span>/<span class="keyword">BEFORE</span> <span class="keyword">INSERT</span>/<span class="keyword">UPDATE</span>/<span class="keyword">DELETE</span> <span class="keyword">ON</span> 表名</span><br><span class="line"><span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span> #固定语句</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"><span class="keyword">sql</span>语句（限于增删改），一句或多句;</span></span><br><span class="line"><span class="operator"><span class="keyword">END</span> ||</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除触发器语法">删除触发器语法</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">DROP</span> <span class="keyword">TRIGGER</span> 触发器名字;</span></span><br></pre></td></tr></table></figure>
+<h3 id="查看触发器">查看触发器</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">SHOW</span> <span class="keyword">TRIGGERS</span>;</span></span><br></pre></td></tr></table></figure>
+<h2 id="实例：订单与库存管理">实例：订单与库存管理</h2><p>触发时间：<code>AFTER</code></p>
+<h3 id="准备工作">准备工作</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#建立商品表</span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> g(</span><br><span class="line">id <span class="built_in">int</span>,</span><br><span class="line">name <span class="built_in">varchar</span>(<span class="number">10</span>),</span><br><span class="line">num <span class="built_in">int</span></span><br><span class="line">)<span class="keyword">CHARSET</span> UTF8;</span></span><br><span class="line"></span><br><span class="line">#建立订单表</span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> o(</span><br><span class="line">oid <span class="built_in">int</span>,</span><br><span class="line">gid <span class="built_in">int</span>,</span><br><span class="line">much <span class="built_in">int</span></span><br><span class="line">)<span class="keyword">CHARSET</span> UTF8;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> g</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">(<span class="number">1</span>, <span class="string">'猪'</span>, <span class="number">22</span>),</span><br><span class="line">(<span class="number">2</span>,<span class="string">'羊'</span>, <span class="number">19</span>),</span><br><span class="line">(<span class="number">3</span>,<span class="string">'狗'</span>, <span class="number">12</span>),</span><br><span class="line">(<span class="number">4</span>,<span class="string">'猫'</span>, <span class="number">8</span>);</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> o</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#手动更新</span><br><span class="line"><span class="operator"><span class="keyword">UPDATE</span> g <span class="keyword">SET</span> num = num-<span class="number">3</span></span><br><span class="line"><span class="keyword">WHERE</span> id = <span class="number">2</span>;</span></span><br></pre></td></tr></table></figure>
+<h3 id="增加一个订单">增加一个订单</h3><p>要求：增加订单，库存数量相应变化</p>
+<ul>
+<li><p>监视地点：o表</p>
+</li>
+<li><p>监视操作：INSERT</p>
+</li>
+<li><p>触发操作：UPDATE</p>
+</li>
+<li><p>触发时间：AFTER</p>
+</li>
+</ul>
+<h4 id="建立简单触发器">建立简单触发器</h4><p>每一次只能对id=2的num进行操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#改变结束符</span><br><span class="line">DELIMITER || #结束符为||,注意后面没有分号</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#建立触发器</span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> tg1</span><br><span class="line"><span class="keyword">AFTER</span> <span class="keyword">INSERT</span> <span class="keyword">ON</span> o</span><br><span class="line"><span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"><span class="keyword">UPDATE</span> g <span class="keyword">SET</span> NUM = NUM-<span class="number">3</span> <span class="keyword">WHERE</span> id = <span class="number">2</span>;</span></span><br><span class="line"><span class="operator"><span class="keyword">END</span> ||</span></span><br></pre></td></tr></table></figure>
+<h4 id="如何在触发器引用行的值">如何在触发器引用行的值</h4><ul>
+<li><p>对于<code>INSERT</code>而言，新增的行用<code>NEW</code>来表示</p>
+<ul>
+<li>行中每一列的值，用<code>NEW.列名</code>来表示</li>
+</ul>
+</li>
+<li><p>对于<code>DELETE</code>而言，删除的行的值用<code>OLD.列名</code>来表示</p>
+</li>
+<li><p>对于<code>UPDATE</code>而言，修改前的行中的值用<code>OLD.列名</code>来引用，而修改后的数据用<code>NEW.列名</code>来引用</p>
+</li>
+</ul>
+<h4 id="简单触发器升级版">简单触发器升级版</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> tg2</span><br><span class="line"><span class="keyword">AFTER</span> <span class="keyword">INSERT</span> <span class="keyword">ON</span> o</span><br><span class="line"><span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"><span class="keyword">UPDATE</span> g <span class="keyword">SET</span> NUM = NUM - NEW.much <span class="keyword">WHERE</span> id = NEW.gid;</span></span><br><span class="line"><span class="operator"><span class="keyword">END</span> ||</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除一个订单">删除一个订单</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> tg3</span><br><span class="line"><span class="keyword">AFTER</span> <span class="keyword">DELETE</span> <span class="keyword">ON</span> o</span><br><span class="line"><span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span> </span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"><span class="keyword">UPDATE</span> g <span class="keyword">SET</span> NUM = NUM + OLD.much <span class="keyword">WHERE</span> id = OLD.gid;</span></span><br><span class="line"><span class="operator"><span class="keyword">END</span> ||</span></span><br></pre></td></tr></table></figure>
+<h3 id="更新一个订单">更新一个订单</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> tg4</span><br><span class="line"><span class="keyword">AFTER</span> <span class="keyword">UPDATE</span> <span class="keyword">ON</span> o</span><br><span class="line"><span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line"><span class="keyword">UPDATE</span> g <span class="keyword">SET</span> NUM = NUM + OLD.much <span class="keyword">WHERE</span> id = OLD.gid;</span></span><br><span class="line"><span class="operator"><span class="keyword">UPDATE</span> g <span class="keyword">SET</span> NUM = NUM - NEW.much <span class="keyword">WHERE</span> id = NEW.gid;</span></span><br><span class="line"><span class="operator"><span class="keyword">END</span> ||</span></span><br></pre></td></tr></table></figure>
+<h2 id="AFTER和BEFORE区别"><code>AFTER</code>和<code>BEFORE</code>区别</h2><ul>
+<li><p><code>AFTER</code>:先完成数据的增删改，在触发</p>
+<ul>
+<li>触发语句晚于增删改，无法影响前面的增删改</li>
+</ul>
+</li>
+<li><p><code>BEFORE</code>：先完成触发，再完成增删改</p>
+<ul>
+<li>触发语句先于监视的增删改发生  </li>
+</ul>
+</li>
+</ul>
+<h3 id="典型案例">典型案例</h3><p>对于所下订单进行判断，如果订单数量&gt;5， 认为是恶意订单，强制把所定商品数量改成5</p>
+<h4 id="触发器四要素">触发器四要素</h4><ol>
+<li><p>监视地点: o</p>
+</li>
+<li><p>监视事件：INSERT</p>
+</li>
+<li><p>触发事件：UPDATE</p>
+</li>
+<li><p>触发事件: BEFORE</p>
+</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TRIGGER</span> tg5</span><br><span class="line"><span class="keyword">BEFORE</span> <span class="keyword">INSERT</span> <span class="keyword">ON</span> o</span><br><span class="line"><span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="keyword">ROW</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">    <span class="keyword">IF</span> NEW.much &gt; <span class="number">5</span> <span class="keyword">THEN</span></span><br><span class="line">        <span class="keyword">SET</span> NEW.much = <span class="number">5</span>;</span></span><br><span class="line">    <span class="operator"><span class="keyword">END</span> <span class="keyword">IF</span>;</span></span><br><span class="line">    <span class="operator"><span class="keyword">UPDATE</span> g <span class="keyword">SET</span> NUM = NUM - NEW.much <span class="keyword">WHERE</span> id = NEW.gid;</span></span><br><span class="line"><span class="operator"><span class="keyword">END</span> ||</span></span><br></pre></td></tr></table></figure></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag">#数据库</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/04/21/SQL：索引/" rel="prev">索引</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/04/16/搭建自己的Blog_hexo/" rel="next">搭建自己的Blog:hexo</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2015/04/20/SQL：触发器/"
+                   data-title="触发器" data-url="http://askingwindy.github.io/2015/04/20/SQL：触发器/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="http://askingwindy-gitcafe.qiniudn.com/touxiang.png" alt="Askingwindy" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Askingwindy</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">世界尽头与冷酷仙境</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/askingwindy?tab=repositories" target="_blank">GitHub</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://askingwindy.gitbooks.io/gitbook-java-interview-note/content/" target="_blank">Java面试准备</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#触发器创建四要素"><span class="nav-number">1.</span> <span class="nav-text">触发器创建四要素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建触发器语法"><span class="nav-number">1.1.</span> <span class="nav-text">创建触发器语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除触发器语法"><span class="nav-number">1.2.</span> <span class="nav-text">删除触发器语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看触发器"><span class="nav-number">1.3.</span> <span class="nav-text">查看触发器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例：订单与库存管理"><span class="nav-number">2.</span> <span class="nav-text">实例：订单与库存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备工作"><span class="nav-number">2.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加一个订单"><span class="nav-number">2.2.</span> <span class="nav-text">增加一个订单</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#建立简单触发器"><span class="nav-number">2.2.1.</span> <span class="nav-text">建立简单触发器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何在触发器引用行的值"><span class="nav-number">2.2.2.</span> <span class="nav-text">如何在触发器引用行的值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单触发器升级版"><span class="nav-number">2.2.3.</span> <span class="nav-text">简单触发器升级版</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除一个订单"><span class="nav-number">2.3.</span> <span class="nav-text">删除一个订单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新一个订单"><span class="nav-number">2.4.</span> <span class="nav-text">更新一个订单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AFTER和BEFORE区别"><span class="nav-number">3.</span> <span class="nav-text">AFTER和BEFORE区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#典型案例"><span class="nav-number">3.1.</span> <span class="nav-text">典型案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#触发器四要素"><span class="nav-number">3.1.1.</span> <span class="nav-text">触发器四要素</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Askingwindy</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"askingwindy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+     
+  	  <script type="text/javascript">
+  		var duoshuo_user_ID = 5813686
+      var duoshuo_admin_nickname="askingwindy"
+  	  </script>
+     
+  	<script src="/js/ua-parser.min.js"></script>
+  	<script src="/js/hook-duoshuo.js"></script>
+  
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.1"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.1"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.1" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.1"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.1" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>
