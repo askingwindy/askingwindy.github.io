@@ -30,7 +30,7 @@
 
 
 
-  <meta name="keywords" content="Spring,Spring MVC," />
+  <meta name="keywords" content="读书," />
 
 
 
@@ -39,18 +39,15 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description" content="spring mvc支持的返回类型包括：ModelAndView，Model，ModelMap，Map，View，String，Void
-返回类型说明ModelAndeView通过ModelAndView构造方法可以指定返回的页面名称，也可以通过setViewName()方法跳转到指定的页面 ,使用addObject()设置需要返回的值，addObject()有几个不同参数的方法，可以默认和指定返">
+<meta name="description" content="2015年读书list， 一共读了62本书">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring MVC中的返回类型">
-<meta property="og:url" content="http://askingwindy.github.io/2015/08/05/Spring MVC：返回类型/index.html">
+<meta property="og:title" content="2015读书list">
+<meta property="og:url" content="http://askingwindy.github.io/2015/01/02/reading_list_2015/index.html">
 <meta property="og:site_name" content="猫生">
-<meta property="og:description" content="spring mvc支持的返回类型包括：ModelAndView，Model，ModelMap，Map，View，String，Void
-返回类型说明ModelAndeView通过ModelAndView构造方法可以指定返回的页面名称，也可以通过setViewName()方法跳转到指定的页面 ,使用addObject()设置需要返回的值，addObject()有几个不同参数的方法，可以默认和指定返">
+<meta property="og:description" content="2015年读书list， 一共读了62本书">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring MVC中的返回类型">
-<meta name="twitter:description" content="spring mvc支持的返回类型包括：ModelAndView，Model，ModelMap，Map，View，String，Void
-返回类型说明ModelAndeView通过ModelAndView构造方法可以指定返回的页面名称，也可以通过setViewName()方法跳转到指定的页面 ,使用addObject()设置需要返回的值，addObject()有几个不同参数的方法，可以默认和指定返">
+<meta name="twitter:title" content="2015读书list">
+<meta name="twitter:description" content="2015年读书list， 一共读了62本书">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -60,7 +57,7 @@
   };
 </script>
 
-  <title> Spring MVC中的返回类型 | 猫生 </title>
+  <title> 2015读书list | 猫生 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -196,7 +193,7 @@
           
           
             
-              Spring MVC中的返回类型
+              2015读书list
             
           
         </h1>
@@ -205,8 +202,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-05T14:13:30+08:00" content="2015-08-05">
-            2015-08-05
+          <time itemprop="dateCreated" datetime="2015-01-02T11:27:48+08:00" content="2015-01-02">
+            2015-01-02
           </time>
         </span>
 
@@ -215,8 +212,8 @@
             &nbsp; | &nbsp; 分类于
             
               <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                <a href="/categories/Java/" itemprop="url" rel="index">
-                  <span itemprop="name">Java</span>
+                <a href="/categories/修炼等级计划/" itemprop="url" rel="index">
+                  <span itemprop="name">修炼等级计划</span>
                 </a>
               </span>
 
@@ -231,8 +228,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/05/Spring MVC：返回类型/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/05/Spring MVC：返回类型/" itemprop="commentsCount"></span>
+              <a href="/2015/01/02/reading_list_2015/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/02/reading_list_2015/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -246,27 +243,130 @@
       
 
       
-        <span itemprop="articleBody"><p>spring mvc支持的返回类型包括：<code>ModelAndView</code>，<code>Model</code>，<code>ModelMap</code>，<code>Map</code>，<code>View</code>，<code>String</code>，<code>Void</code></p>
-<h2 id="返回类型说明">返回类型说明</h2><h3 id="ModelAndeView">ModelAndeView</h3><p>通过ModelAndView构造方法可以指定返回的页面名称，也可以通过setViewName()方法跳转到指定的页面 ,使用addObject()设置需要返回的值，addObject()有几个不同参数的方法，可以默认和指定返回对象的名字。<br>ModelMap是LinkedHashMap的子类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@RequestMapping</span>(<span class="string">"/show1"</span>) </span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">show1</span><span class="params">(HttpServletRequest request, </span><br><span class="line">           HttpServletResponse response)</span> <span class="keyword">throws</span> Exception </span>&#123; </span><br><span class="line">	ModelAndView mav = <span class="keyword">new</span> ModelAndView(<span class="string">"/demo2/show"</span>); </span><br><span class="line">	mav.addObject(<span class="string">"account"</span>, <span class="string">"account -1"</span>); </span><br><span class="line">	<span class="keyword">return</span> mav; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>构造完ModelAndView对象之后，仍然可以利用addobject()方法为它添加模型属性，这个方法返回ModelAndView对象<br><a id="more"></a></p>
-<h4 id="只有一个模型属性需要返回">只有一个模型属性需要返回</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.apress.springrecipes.court.web;  </span><br><span class="line"><span class="comment">//...  </span></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;  </span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.AbstractController;  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WelcomeController</span> <span class="keyword">extends</span> <span class="title">AbstractController</span></span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequestInternal</span><span class="params">(HttpServletRequest request,  </span><br><span class="line">        HttpServletResponse response)</span><span class="keyword">throws</span> Exception</span>&#123;  </span><br><span class="line">        Date today = <span class="keyword">new</span> Date();  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"welcome"</span>,<span class="string">"today"</span>,today);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="不止一个属性需要返回">不止一个属性需要返回</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.apress.springrecipes.court.web;  </span><br><span class="line"><span class="comment">//...  </span></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;  </span><br><span class="line"><span class="keyword">import</span> org. springframework.web.servlet.mvc.AbstractController;  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReservationQueryController</span> <span class="keyword">extends</span> <span class="title">AbstractController</span></span>&#123;  </span><br><span class="line">    ...  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequestInternal</span><span class="params">(HttpServletRequest request,  </span><br><span class="line">        HttpServletResponse response)</span><span class="keyword">throws</span> Exception</span>&#123;  </span><br><span class="line">        ...  </span><br><span class="line">        Map&lt;String,Object&gt; model = <span class="keyword">new</span> HashMap&lt;String,Object&gt;();  </span><br><span class="line">        <span class="keyword">if</span>(courtName != <span class="keyword">null</span>)&#123;  </span><br><span class="line">            model.put(<span class="string">"courtName"</span>,courtName);  </span><br><span class="line">            model.put(<span class="string">"reservations"</span>,reservationService.query(courtName));  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"reservationQuery"</span>,model);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Model">Model</h3><p>Model 是一个接口， 其实现类为ExtendedModelMap，继承了ModelMap类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@RequestMapping</span>(<span class="string">"/demo2/show"</span>) </span><br><span class="line"><span class="keyword">public</span> Map&lt;String, String&gt; getMap() &#123; </span><br><span class="line">    Map&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;String, String&gt;(); </span><br><span class="line">    map.put(<span class="string">"key1"</span>, <span class="string">"value-1"</span>); </span><br><span class="line">    map.put(<span class="string">"key2"</span>, <span class="string">"value-2"</span>); </span><br><span class="line">    <span class="keyword">return</span> map; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在jsp页面中可直通过${key1}获得到值, map.put()相当于request.setAttribute方法。<br>写例子时发现，key值包括 <code>-</code> . 时会有问题</p>
-<h3 id="String">String</h3><p>String 指定返回的视图页面名称，结合设置的返回地址路径加上页面名称后缀即可访问到。</p>
-<h4 id="ResponseBody">ResponseBody</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@RequestMapping</span>(value = <span class="string">"/something"</span>, method = RequestMethod.GET) </span><br><span class="line"><span class="annotation">@ResponseBody</span> </span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">helloWorld</span><span class="params">()</span>  </span>&#123; </span><br><span class="line">	<span class="keyword">return</span> <span class="string">"Hello World"</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>注意：如果方法声明了注解@ResponseBody ，则会直接将返回值输出到页面</li>
-<li>上面的结果会将文本”Hello World “直接写到http响应流</li>
-</ul>
-<h4 id="其他">其他</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@RequestMapping</span>(<span class="string">"/welcome"</span>) </span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">welcomeHandler</span><span class="params">()</span> </span>&#123; </span><br><span class="line">  <span class="keyword">return</span> <span class="string">"center"</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>对应的逻辑视图名为“center”，URL= prefix前缀+视图名称 +suffix后缀组成</li>
-</ul>
-<h3 id="void">void</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@RequestMapping</span>(<span class="string">"/welcome"</span>) </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">welcomeHandler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>如果返回值为空，则响应的视图页面对应为<strong>访问地址</strong></li>
-</ul>
+        <span itemprop="articleBody"><h1 id="1月">1月</h1><h2 id="技术类书籍">技术类书籍</h2><ol>
+<li>JAVA编程思想（第4版）—[美]Bruce Eckel </li>
+<li>数据结构与算法（Java语言版）— [美]德罗兹德克 </li>
+<li>设计模式与禅 — 秦小波 </li>
+</ol>
+<h2 id="文学">文学</h2><ol>
+<li>文学回忆录（上、下）— 木心</li>
+</ol>
+<h2 id="小说">小说</h2><ol>
+<li>解忧杂货店 — [日]东野圭吾</li>
+</ol>
+<h1 id="2月">2月</h1><h2 id="技术类书籍-1">技术类书籍</h2><ol>
+<li>剑指OFFER — 何海涛 </li>
+<li>JAVA程序员面试笔试宝典 —  何昊 / 薛鹏 / 叶向阳 （不推荐再看）</li>
+<li>深入理解Java虚拟机（第2版）— 周志明</li>
+<li>Java网络编程(中文版 第3版) — [美]Elliotte Rusty Harold </li>
+</ol>
+<h2 id="小说-1">小说</h2><ol>
+<li>海伯利安四部曲 — [美]丹·西蒙斯 <ol>
+<li>海伯利安</li>
+<li>海伯利安的陨落</li>
+<li>安迪密恩</li>
+<li>安迪密恩的觉醒</li>
+</ol>
+</li>
+</ol>
+<h2 id="其他">其他</h2><ol>
+<li>只愿你曾被这世界温柔相待—水木丁</li>
+</ol>
+<h1 id="3月">3月</h1><h2 id="技术类书籍-2">技术类书籍</h2><ol>
+<li>剑指OFFER — 何海涛 </li>
+<li>深入理解Java虚拟机（第2版）— 周志明</li>
+<li>疯狂JAVA讲义 — 李阳</li>
+</ol>
+<h2 id="文学-1">文学</h2><ol>
+<li>战争与和平 — [俄]列夫·托尔斯泰</li>
+</ol>
+<h2 id="小说-2">小说</h2><ol>
+<li>人类灭绝 —[日] 高野和明 </li>
+</ol>
+<h1 id="4月">4月</h1><h2 id="技术类书籍-3">技术类书籍</h2><ol>
+<li>疯狂java程序员的基本修养 — 李阳</li>
+<li>图解HTTP — [日]上野宣 </li>
+<li>Java并发编程实战 — [美]Brian Goetz / Tim Peierls / Joshua Bloch / Joseph Bowbeer / David Holmes / Doug Lea</li>
+</ol>
+<h2 id="文学-2">文学</h2><ol>
+<li>草枕 — [日]夏目漱石</li>
+</ol>
+<h2 id="其他-1">其他</h2><ol>
+<li>学会提问—尼尔·布朗</li>
+<li>跟任何人都聊得来—迈克·贝克特尔</li>
+</ol>
+<h1 id="5月">5月</h1><h2 id="其他-2">其他</h2><ol>
+<li>心理学与生活 — [美] 理查德·格里格 / 菲利普·津巴多 </li>
+</ol>
+<h1 id="6月">6月</h1><h2 id="技术类书籍-4">技术类书籍</h2><ol>
+<li>Spring权威指南 — 计文柯</li>
+</ol>
+<h2 id="其他-3">其他</h2><ol>
+<li>沟通的艺术看入人里，看出人外）—[美]罗伊德·B·阿德勒</li>
+</ol>
+<h2 id="纯英文">纯英文</h2><ol>
+<li>Gone Girl - Gillian Flynn </li>
+</ol>
+<h1 id="7月">7月</h1><h2 id="技术类书记">技术类书记</h2><ol>
+<li>Spring实战 -[美] Craig Walls</li>
+<li>Spring MVC学习指南 - [美] 戴克(Paul Deck)</li>
+</ol>
+<h2 id="其他-4">其他</h2><ol>
+<li>星际穿越 - [美]基普·索恩</li>
+</ol>
+<h2 id="小说-3">小说</h2><ol>
+<li>理智与情感 - [英]简·奥斯丁</li>
+<li>无声告白 - [美]伍绮诗</li>
+</ol>
+<h1 id="8月">8月</h1><h2 id="其他-5">其他</h2><ol>
+<li>一日看尽长安花——听北大教授畅讲中国古代文学 - 程郁缀</li>
+<li>万历十五年 - 黄仁宇</li>
+</ol>
+<h2 id="小说-4">小说</h2><ol>
+<li>神们自己 - [美]艾萨克•阿西莫夫</li>
+</ol>
+<h1 id="9月">9月</h1><h2 id="其他-6">其他</h2><ol>
+<li>关键对话：如何高效能沟通 - [美]科里·帕特森</li>
+<li>安娜·卡列尼娜 - [俄]列夫·托尔斯泰</li>
+</ol>
+<h2 id="小说-5">小说</h2><ol>
+<li>神的九十亿个名字 - [美]阿瑟·克拉克</li>
+</ol>
+<h1 id="10月">10月</h1><h2 id="其他-7">其他</h2><ol>
+<li>失控 - [美]凯文·凯利 </li>
+<li>最好的告别：关于衰老与死亡，你必须知道的常识 - [美]阿图•葛文德</li>
+</ol>
+<h2 id="小说-6">小说</h2><ol>
+<li>虚无的十字架 - [日]东野圭吾</li>
+</ol>
+<h1 id="11月">11月</h1><h2 id="小说-7">小说</h2><ol>
+<li>当我们谈论爱情时我们在谈论什么 - [美]雷蒙德·卡佛</li>
+<li>岛上书店 - [美]加布瑞埃拉·泽文</li>
+<li>银河帝国(1-3):基地三部曲 - [美]艾萨克•阿西莫夫</li>
+</ol>
+<h2 id="批判性思维">批判性思维</h2><ol>
+<li>批判性思维工具（原书第3版）-[美] 理查德·保罗 / [美] 琳达·埃尔德 </li>
+</ol>
+<h2 id="其他-8">其他</h2><ol>
+<li>蒙田随笔 - [法]米歇尔·德·蒙田 </li>
+<li>鱼羊野史·第一卷 - 高晓松</li>
+<li>知日！知日！这次彻底了解日本（套装共4册）- 苏静</li>
+<li>国富论 - [英]亚当·斯密</li>
+<li>自杀论 - [法]埃米尔·迪尔凯姆</li>
+</ol>
+<h1 id="12月">12月</h1><h2 id="小说-8">小说</h2><ol>
+<li>献给阿尔吉侬的花束 -[美]丹尼尔•凯斯</li>
+<li>永恒的终结 - [美]艾萨克·阿西莫</li>
+<li>火星救援 - [美]安迪·威尔</li>
+<li>来自新世界 - [日]贵志祐介</li>
+</ol>
+<h2 id="其他-9">其他</h2><ol>
+<li>黑客与画家 - [美]Paul Graham</li>
+</ol>
+<h2 id="纯英文-1">纯英文</h2><ol>
+<li>The Organized Mind: Thinking Straight in the Age of Information Overload - Daniel J. Levitin</li>
+<li>To Kill A Mockingbird - Harper Lee</li>
+</ol>
 </span>
       
     </div>
@@ -275,9 +375,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Spring/" rel="tag">#Spring</a>
-          
-            <a href="/tags/Spring-MVC/" rel="tag">#Spring MVC</a>
+            <a href="/tags/读书/" rel="tag">#读书</a>
           
         </div>
       
@@ -286,13 +384,13 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/17/SQL：分页与优化/" rel="prev">分页与优化</a>
+              <a href="/2015/03/01/Git：搭建GIT服务器/" rel="prev">搭建GIT服务器</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/04/SQL：外内键/" rel="next">SQL：主键、外键、索引</a>
+              <a href="/2014/07/23/SQL：事务/" rel="next">事务</a>
             
           </div>
         </div>
@@ -340,8 +438,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/08/05/Spring MVC：返回类型/"
-                   data-title="Spring MVC中的返回类型" data-url="http://askingwindy.github.io/2015/08/05/Spring MVC：返回类型/">
+              <div class="ds-thread" data-thread-key="2015/01/02/reading_list_2015/"
+                   data-title="2015读书list" data-url="http://askingwindy.github.io/2015/01/02/reading_list_2015/">
               </div>
             
           </div>
@@ -433,7 +531,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#返回类型说明"><span class="nav-number">1.</span> <span class="nav-text">返回类型说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ModelAndeView"><span class="nav-number">1.1.</span> <span class="nav-text">ModelAndeView</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#只有一个模型属性需要返回"><span class="nav-number">1.1.1.</span> <span class="nav-text">只有一个模型属性需要返回</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不止一个属性需要返回"><span class="nav-number">1.1.2.</span> <span class="nav-text">不止一个属性需要返回</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Model"><span class="nav-number">1.2.</span> <span class="nav-text">Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String"><span class="nav-number">1.3.</span> <span class="nav-text">String</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ResponseBody"><span class="nav-number">1.3.1.</span> <span class="nav-text">ResponseBody</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他"><span class="nav-number">1.3.2.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#void"><span class="nav-number">1.4.</span> <span class="nav-text">void</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1月"><span class="nav-number">1.</span> <span class="nav-text">1月</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术类书籍"><span class="nav-number">1.1.</span> <span class="nav-text">技术类书籍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文学"><span class="nav-number">1.2.</span> <span class="nav-text">文学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小说"><span class="nav-number">1.3.</span> <span class="nav-text">小说</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2月"><span class="nav-number">2.</span> <span class="nav-text">2月</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术类书籍-1"><span class="nav-number">2.1.</span> <span class="nav-text">技术类书籍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小说-1"><span class="nav-number">2.2.</span> <span class="nav-text">小说</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">2.3.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3月"><span class="nav-number">3.</span> <span class="nav-text">3月</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术类书籍-2"><span class="nav-number">3.1.</span> <span class="nav-text">技术类书籍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文学-1"><span class="nav-number">3.2.</span> <span class="nav-text">文学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小说-2"><span class="nav-number">3.3.</span> <span class="nav-text">小说</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4月"><span class="nav-number">4.</span> <span class="nav-text">4月</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术类书籍-3"><span class="nav-number">4.1.</span> <span class="nav-text">技术类书籍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文学-2"><span class="nav-number">4.2.</span> <span class="nav-text">文学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他-1"><span class="nav-number">4.3.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5月"><span class="nav-number">5.</span> <span class="nav-text">5月</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他-2"><span class="nav-number">5.1.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6月"><span class="nav-number">6.</span> <span class="nav-text">6月</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术类书籍-4"><span class="nav-number">6.1.</span> <span class="nav-text">技术类书籍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他-3"><span class="nav-number">6.2.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#纯英文"><span class="nav-number">6.3.</span> <span class="nav-text">纯英文</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7月"><span class="nav-number">7.</span> <span class="nav-text">7月</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术类书记"><span class="nav-number">7.1.</span> <span class="nav-text">技术类书记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他-4"><span class="nav-number">7.2.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小说-3"><span class="nav-number">7.3.</span> <span class="nav-text">小说</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8月"><span class="nav-number">8.</span> <span class="nav-text">8月</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他-5"><span class="nav-number">8.1.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小说-4"><span class="nav-number">8.2.</span> <span class="nav-text">小说</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9月"><span class="nav-number">9.</span> <span class="nav-text">9月</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他-6"><span class="nav-number">9.1.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小说-5"><span class="nav-number">9.2.</span> <span class="nav-text">小说</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10月"><span class="nav-number">10.</span> <span class="nav-text">10月</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#其他-7"><span class="nav-number">10.1.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小说-6"><span class="nav-number">10.2.</span> <span class="nav-text">小说</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11月"><span class="nav-number">11.</span> <span class="nav-text">11月</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#小说-7"><span class="nav-number">11.1.</span> <span class="nav-text">小说</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批判性思维"><span class="nav-number">11.2.</span> <span class="nav-text">批判性思维</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他-8"><span class="nav-number">11.3.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12月"><span class="nav-number">12.</span> <span class="nav-text">12月</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#小说-8"><span class="nav-number">12.1.</span> <span class="nav-text">小说</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他-9"><span class="nav-number">12.2.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#纯英文-1"><span class="nav-number">12.3.</span> <span class="nav-text">纯英文</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
